@@ -1,0 +1,15 @@
+<!-- templates/article/article_list.html -->
+{% extends 'base.html' %} {% block title %} Articles {% endblock title %} {% block content %} {% for article in object_list %}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ article.title }}</h4>
+        <h5 class="card-subtitle mb-2 text-muted">{{ article.author }}</h5>
+        <h6 class="card-subtitl mb-2 text-muted">{{ article.date }} </h6>
+        <p class="card-text">{{ article.body }}</p>
+        <a href="#" class="card-link">Edit</a>
+        <a href="#" class="card-link">Delete</a>
+    </div>
+</div>
+
+{% endfor %} {% endblock %}

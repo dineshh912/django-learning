@@ -7,6 +7,10 @@ class Calculator(WebsocketConsumer):
   
     def disconnect(self, close_code):
         self.close()   
+
+    
+    def send(self, data):
+        self.send(data)
   
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
@@ -18,3 +22,5 @@ class Calculator(WebsocketConsumer):
         self.send(text_data=json.dumps({
             'result': result
         }))
+
+

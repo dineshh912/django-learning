@@ -1,0 +1,20 @@
+<!-- templates/article/article_detail.html -->
+{% extends 'base.html' %} {% block title %} Article Detail {% endblock title%} {% block content %}
+
+<div class="article-entry">
+    <h2>{{ object.title }}</h2>
+    <p>by {{ object.author }} on {{ object.date }}</p>
+    <p>{{ Object.body }}</p>
+</div>
+
+{% for comment in article.comments.all %}
+<p>
+    <span class="font-weight-bold">{{comment.author}} : </span>{{comment}}
+</p>
+{% endfor %}
+
+<p><a href="{% url 'article_edit' article.pk %}">Edit</a>
+    <a href="{% url 'article_delete' article.pk %}">Delete</a>
+    <a href="{% url 'article_list'%}">All articles</a></p>
+
+{% endblock content %}

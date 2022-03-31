@@ -1,0 +1,10 @@
+<!-- templates/article/article_crate.html -->
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block title %} Add new Article {% endblock title %} {% block content %}
+<h1>Add new article</h1>
+<form method="POST" action="">
+    {% csrf_token %} {{form | crispy }}
+
+    <button class="btn btn-success" type="submit">Save</button>
+</form>
+
+{% endblock content%}

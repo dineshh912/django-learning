@@ -18,10 +18,12 @@ from .views import (
     ArticleListView,
     ArticleUpdateView,
     ArticleDetailView,
-    ArticleDeleteView)
+    ArticleDeleteView,
+    ArticleCreateView)
 
 
 urlpatterns = [
+    path('create/', ArticleCreateView.as_view(), name='article_create'),
     path('', ArticleListView.as_view(), name='article_list'), # List all article
     path('<int:pk>/', ArticleDetailView.as_view(), name='article_detail'), # Single article
     path('<int:pk>/edit/', ArticleUpdateView.as_view(), name='article_edit'), # Edit article

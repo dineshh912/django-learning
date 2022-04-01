@@ -22,6 +22,6 @@ application = ProtocolTypeRouter({
     "websocket": URLRouter([
         path("ws/", EchoConsumer()),
         path("ws/tick/", TickTockConsumer()),
-        path("ws/notification/", UserCreatedConsumer())
+        path("ws/notification/", UserCreatedConsumer.as_asgi())
     ])
 })

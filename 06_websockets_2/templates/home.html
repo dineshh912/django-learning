@@ -1,4 +1,4 @@
-<!-- templates/home.html-->
+<!-- templates/home.html
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@
 
             const nl = document.querySelector("#notify");
 
-            webSocketBridge.connect('/ws/notification/');
+            webSocketBridge.connect('/ws/notification/123');
 
             webSocketBridge.listen(function(action) {
                 console.log("Res:", action);
@@ -37,4 +37,4 @@
     </script>
 </body>
 
-</html>
+</html>-->

@@ -45,6 +45,11 @@ class UserCreatedConsumer(AsyncJsonWebsocketConsumer):
         print(f"Removed {self.channel_name} Channel to gossip")
 
     
+    async def websocket_receive(self, event):
+        # Echo the same received payload
+        print(event)
+    
+    
     async def user_gossip(self, event):
 
         await self.send_json(event)

@@ -11,18 +11,27 @@
 <body>
     <h1>Notify</h1>
 
+    <ul id="notify"></ul>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
             const webSocketBridge = new channels.WebSocketBridge();
 
-            webSocketBridge.connect('/ws/');
+            const nl = document.querySelector("#notify");
 
-            webSocketBridge.listen(function(action, stream) {
-                console.log("Res:", action, stream);
+            webSocketBridge.connect('/ws/notification/');
+
+            webSocketBridge.listen(function(action) {
+                console.log("Res:", action);
+
+                if (action.evnet = "New User") {
+                    var el = document.createElement("li");
+                    el.innerHTML = `New user <b>${action.usernmae}</b> added`;
+                    nl.appendChild(el);
+
+                }
             });
 
-            console.log("hello");
             document.ws = webSocketBridge;
         })
     </script>

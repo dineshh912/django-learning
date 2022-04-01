@@ -12,7 +12,7 @@ import os
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.urls import path
-from notifier.consumers import EchoConsumer
+from notifier.consumers import EchoConsumer, TickTockConsumer,UserCreatedConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
@@ -21,5 +21,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 application = ProtocolTypeRouter({
     "websocket": URLRouter([
         path("ws/", EchoConsumer()),
+        path("ws/tick/", TickTockConsumer()),
+        path("ws/notification/", UserCreatedConsumer())
     ])
 })

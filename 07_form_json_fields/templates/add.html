@@ -1,0 +1,10 @@
+<!-- templates/article/article_crate.html -->
+
+<form method="POST" action="">
+    {% csrf_token %} <br/><br/>
+    <input type="text" name="title" placeholder="title">
+    <input type="text" name="name" placeholder="name">
+    <input type="text" name="email" placeholder="email">
+
+    <button class="btn btn-success" type="submit">Save</button>
+</form>

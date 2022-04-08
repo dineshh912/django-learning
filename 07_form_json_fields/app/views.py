@@ -1,6 +1,9 @@
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, TemplateView
-from .models import Customer
+from .models import Customer, Bird
 from django.shortcuts import redirect
+from .forms import BirdFormSet
+
 
 # Create your views here.
 class CustomerCreateView(CreateView):
@@ -30,3 +33,25 @@ class CustomerDetailView(DetailView):
 
 class CustomerView(TemplateView):
     template_name = 'all.html'
+
+
+class BirdAddView(TemplateView):
+    template_name = 'add_bird.html'
+
+    def get(self, *args, **kwargs):
+
+        formset = BirdFormSet(queryset=Bird.objects.none())
+        return self.render_to_response({'bird_formset': formset})
+
+    def post(self, *args, **kwargs):
+        
+        formset = BirdFormSet(data=self.request.POST)
+
+        print(formset.get_context())
+
+        if formset.is_valid():
+            pass
+            # formset.save()
+            # return redirect(reverse_lazy("customer"))
+        
+        return self.render_to_response({'bird_formset': formset})

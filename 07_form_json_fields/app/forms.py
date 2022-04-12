@@ -21,3 +21,9 @@ class BirdForm(ModelForm):
     class Meta:
         model = Bird
         fields = ["common_name", "scientific_name"]
+
+
+
+class testForm(forms.Form):
+    title = forms.CharField(max_length=4)
+    text = forms.JSONField()

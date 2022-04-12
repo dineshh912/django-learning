@@ -2,14 +2,16 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, TemplateView
 from .models import Customer, Bird
 from django.shortcuts import redirect
-from .forms import BirdFormSet
-
+from .forms import BirdFormSet, testForm
+from django.http import QueryDict
 
 # Create your views here.
 class CustomerCreateView(CreateView):
     model = Customer
     template_name = 'add.html'
     fields = ('title', 'text')
+    success_message = "added"
+    success_url = reverse_lazy('view_address_type')
 
     def post(self, request):
         # super(Customer, self).post(request)
@@ -17,12 +19,20 @@ class CustomerCreateView(CreateView):
         name = request.POST['name']
         email = request.POST['email']
 
-        test = { "name": name, "email": email}
+        
 
-        customer = Customer(title=title, text=test)
-        customer.save()
+        valid = {'title': title, 'text': {'name': name, 'email': email}}
+
+        test = { "name": name, "email": email}
+        
+        form = testForm(valid or None)
+
+        if form.is_valid():
+
+            customer = Customer(title=title, text=test)
+            customer.save()
   
-        return redirect('customer')
+            return redirect('customer')
 
 
 

@@ -47,8 +47,6 @@ class BirdAddView(TemplateView):
         
         formset = BirdFormSet(data=self.request.POST)
 
-        print(formset.get_context())
-
         if formset.is_valid():
             pass
             # formset.save()

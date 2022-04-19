@@ -1,40 +1,30 @@
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, TemplateView
+from django.views.generic import DetailView, CreateView, View, TemplateView
 from .models import Customer, Bird
 from django.shortcuts import redirect
-from .forms import BirdFormSet, testForm
-from django.http import QueryDict
+from .forms import BirdFormSet, testForm, testFormSet
+from django.shortcuts import render
 
 # Create your views here.
-class CustomerCreateView(CreateView):
+class CustomerCreateView(View):
     model = Customer
     template_name = 'add.html'
-    fields = ('title', 'text')
     success_message = "added"
+    form = testForm
     success_url = reverse_lazy('view_address_type')
+    
+    def get(self, request):
+
+        return render(request, self.template_name, {'formset': testFormSet})
 
     def post(self, request):
-        # super(Customer, self).post(request)
-        title = request.POST['title']
-        name = request.POST['name']
-        email = request.POST['email']
 
-        
-
-        valid = {'title': title, 'text': {'name': name, 'email': email}}
-
-        test = { "name": name, "email": email}
-        
-        form = testForm(valid or None)
+        form = testFormSet(request.POST)
 
         if form.is_valid():
-
-            customer = Customer(title=title, text=test)
-            customer.save()
-  
-            return redirect('customer')
-
-
+            print(form.cleaned_data)
+        else:
+            print("invalid")
 
 class CustomerDetailView(DetailView):
     model = Customer

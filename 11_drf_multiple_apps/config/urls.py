@@ -39,9 +39,10 @@ urlpatterns = [
     # path('', include('books.urls')),
     path('api/', include('api.urls')), # API Framework
     # path('api-auth/', include('rest_framework.urls')), # API Framework
-    path('api/dj-rest-auth/', include('dj_rest_auth.urls')), # API Framework
+    path('api/auth/', include('dj_rest_auth.urls')), # API Framework
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), 
                     name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
                     name='schema-redoc'),
+    path('accounts/', include('allauth.urls')),
 ]

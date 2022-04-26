@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from lib2to3.pgen2.token import SLASH
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,10 +38,15 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = ['rest_framework',
                     'rest_framework.authtoken',
+                    'allauth', 
+                    'allauth.account',
+                    'allauth.socialaccount',
+                    'allauth.socialaccount.providers.microsoft', 
                     'dj_rest_auth',
                      'corsheaders',
                      'drf_yasg']
@@ -48,6 +54,9 @@ THIRD_PARTY_APPS = ['rest_framework',
 LOCAL_APPS = ['books', 'todos', 'blog']
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # new
+SITE_ID = 1 # new
 
 
 MIDDLEWARE = [
@@ -151,3 +160,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APPEND_SLASH = True
+
+
+# Social login 
+SOCIALACCOUNT_PROVIDERS = {
+    'microsoft': {
+        'TENANT': 'organizations',
+        'APP': {
+            'client_id': '5505c906-2c29-42a2-a63b-3674b14fb63b',
+            'client_secret': 'zIZ8Q~_tf1AgxKexwgjn7sbApfZVAY2QX1kLtcbe',
+            'redirect': 'http://localhost:8000/accounts/microsoft/login/callback/',
+            'scope': ['user.read']
+        }
+    }
+}

@@ -19,6 +19,7 @@ from .views.todo_views import TodoViewset
 from .views.blog_views import BlogViewSet
 from .views.user_views import UserViewSet
 router = SimpleRouter()
+
 router.register('todos', TodoViewset, basename='todos')
 router.register('blog', BlogViewSet, basename='blog')
 router.register('users', UserViewSet, basename='users')

@@ -5,4 +5,4 @@ scopes:
   - user.read
   - mailboxsettings.read
   - calendars.readwrite
-authority: "https://login.microsoftonline.com/common"
+authority: "https://login.microsoftonline.com/9a62f120-db51-43f1-85ca-35100b217362"

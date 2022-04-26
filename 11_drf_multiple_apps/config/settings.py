@@ -165,14 +165,3 @@ APPEND_SLASH = True
 
 
 # Social login 
-SOCIALACCOUNT_PROVIDERS = {
-    'microsoft': {
-        'TENANT': 'organizations',
-        'APP': {
-            'client_id': '5505c906-2c29-42a2-a63b-3674b14fb63b',
-            'client_secret': 'zIZ8Q~_tf1AgxKexwgjn7sbApfZVAY2QX1kLtcbe',
-            'redirect': 'http://localhost:8000/accounts/microsoft/login/callback/',
-            'scope': ['user.read']
-        }
-    }
-}

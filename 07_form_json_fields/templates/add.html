@@ -9,13 +9,15 @@
 -->
 
 <form id="form-container" method="POST">
-    {% csrf_token %} {{formset.management_form}} {% for form in formset %}
+    {% csrf_token %} 
+        {{ customer_form }}
+    {{address_form.management_form}} {% for form in address_form %}
     <div class="bird-form">
         {{form.as_p}}
     </div>
     {% endfor %}
-    <button id="add-form" type="button">Add Another Bird</button>
-    <button type="submit">Create Birds</button>
+    <button id="add-form" type="button">Add Another contact</button>
+    <button type="submit">Create</button>
 </form>
 
 <script>

@@ -17,14 +17,33 @@ class BirdForm(ModelForm):
 
 
 
-class testForm(EntangledModelForm):
-    name = forms.CharField(max_length=255, required=True)
-    email = forms.CharField(max_length=34, required=True)
+# class testForm(EntangledModelForm):
+#     name = forms.CharField(max_length=255, required=True)
+#     email = forms.CharField(max_length=34, required=True)
+
+#     class Meta:
+#         model = Customer
+#         entangled_fields = {"text": ['name', 'email'] }
+#         untangled_fields = ['title']
+
+
+# testFormSet = formset_factory(testForm, fields=('name', 'email'),extra=1)
+
+
+class CustomerForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ["name"]
+
+
+class AddressForm(EntangledModelForm):
+    address = forms.CharField(max_length=255, required=True)
+    city = forms.CharField(max_length=255, required=True)
 
     class Meta:
         model = Customer
-        entangled_fields = {"text": ['name', 'email'] }
-        untangled_fields = ['title']
+        entangled_fields = {"address": ['address', "city"], 
+                            "phone": ["code", "number"] }
 
 
-testFormSet = formset_factory(testForm, fields=('name', 'email'),extra=1)
+customerFormset = formset_factory(AddressForm, extra=1)

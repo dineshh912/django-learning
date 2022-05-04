@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, View, TemplateView
 from .models import Customer, Bird
 from django.shortcuts import redirect
-from .forms import BirdFormSet, testForm, testFormSet
+from .forms import BirdFormSet, CustomerForm, customerFormset
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,21 +10,29 @@ class CustomerCreateView(View):
     model = Customer
     template_name = 'add.html'
     success_message = "added"
-    form = testForm
+    customer_form = CustomerForm()
+    address_form = customerFormset()
     success_url = reverse_lazy('view_address_type')
     
     def get(self, request):
 
-        return render(request, self.template_name, {'formset': testFormSet})
+        return render(request, self.template_name, 
+            {'customer_form': self.customer_form,
+             'address_form': self.address_form})
 
     def post(self, request):
 
-        form = testFormSet(request.POST)
+        customer_data = CustomerForm(request.POST)
+        address_data = customerFormset(request.POST)
 
-        if form.is_valid():
-            print(form.cleaned_data)
+        if customer_data.is_valid() and address_data.is_valid():
+            print(customer_data.cleaned_data)
+            print(address_data.cleaned_data)
         else:
             print("invalid")
+
+
+
 
 class CustomerDetailView(DetailView):
     model = Customer

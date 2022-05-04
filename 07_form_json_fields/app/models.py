@@ -5,12 +5,19 @@ class Customer(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     address = models.JSONField()
-    phone = models.JSONField()
-
+    contact = models.JSONField()
 
     def __str__(self):
-        return self.title
+        return self.name
 
+
+
+class address_type(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.type
 
 
 class Bird(models.Model):

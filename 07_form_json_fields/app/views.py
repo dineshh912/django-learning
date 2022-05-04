@@ -1,8 +1,9 @@
+from pyexpat import model
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, View, TemplateView
+from django.views.generic import DetailView, UpdateView, View, TemplateView
 from .models import Customer, Bird
 from django.shortcuts import redirect
-from .forms import BirdFormSet, CustomerForm, customerFormset
+from .forms import CustomerForm, AddressFormset
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,9 +11,10 @@ class CustomerCreateView(View):
     model = Customer
     template_name = 'add.html'
     success_message = "added"
+
     customer_form = CustomerForm()
-    address_form = customerFormset()
-    success_url = reverse_lazy('view_address_type')
+    address_form = AddressFormset()
+    # contact_form = ContactFormset()
     
     def get(self, request):
 
@@ -23,15 +25,21 @@ class CustomerCreateView(View):
     def post(self, request):
 
         customer_data = CustomerForm(request.POST)
-        address_data = customerFormset(request.POST)
-
+        address_data = AddressFormset(request.POST)
+        customer_address = {}
+        customer_contact = {}
         if customer_data.is_valid() and address_data.is_valid():
-            print(customer_data.cleaned_data)
-            print(address_data.cleaned_data)
+            for i in address_data.cleaned_data:
+                customer_address[i['address']['address']] = i['address']
+                customer_contact[i['contact']['phone']] = i['contact']
+            obj = Customer()
+            obj.name = customer_data.cleaned_data.get("name")
+            obj.address = customer_address
+            obj.contact = customer_contact
+            obj.save()
+            print("i am saved")         
         else:
             print("invalid")
-
-
 
 
 class CustomerDetailView(DetailView):
@@ -43,21 +51,22 @@ class CustomerView(TemplateView):
     template_name = 'all.html'
 
 
-class BirdAddView(TemplateView):
-    template_name = 'add_bird.html'
 
-    def get(self, *args, **kwargs):
+# class BirdAddView(TemplateView):
+#     template_name = 'add_bird.html'
 
-        formset = BirdFormSet(queryset=Bird.objects.none())
-        return self.render_to_response({'bird_formset': formset})
+#     def get(self, *args, **kwargs):
 
-    def post(self, *args, **kwargs):
+#         formset = BirdFormSet(queryset=Bird.objects.none())
+#         return self.render_to_response({'bird_formset': formset})
+
+#     def post(self, *args, **kwargs):
         
-        formset = BirdFormSet(data=self.request.POST)
+#         formset = BirdFormSet(data=self.request.POST)
 
-        if formset.is_valid():
-            pass
-            # formset.save()
-            # return redirect(reverse_lazy("customer"))
+#         if formset.is_valid():
+#             pass
+#             # formset.save()
+#             # return redirect(reverse_lazy("customer"))
         
-        return self.render_to_response({'bird_formset': formset})
+#         return self.render_to_response({'bird_formset': formset})

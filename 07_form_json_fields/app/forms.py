@@ -9,9 +9,6 @@ BirdFormSet = modelformset_factory(
 )
 
 
-
-
-
 class BirdForm(ModelForm):
 
     class Meta:
@@ -30,4 +27,4 @@ class testForm(EntangledModelForm):
         untangled_fields = ['title']
 
 
-testFormSet = formset_factory(testForm, extra=1)
+testFormSet = formset_factory(testForm, fields=('name', 'email'),extra=1)

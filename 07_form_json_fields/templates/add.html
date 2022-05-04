@@ -9,7 +9,7 @@
 -->
 
 <form id="form-container" method="POST">
-    <input type="text" name="title"> {% csrf_token %} {{formset.management_form}} {% for form in formset %}
+    {% csrf_token %} {{formset.management_form}} {% for form in formset %}
     <div class="bird-form">
         {{form.as_p}}
     </div>
